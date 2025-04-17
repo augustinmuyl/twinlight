@@ -1,11 +1,10 @@
-
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    './app/**/*.{js,ts,jsx,tsx}',   // Include your App Router paths
-    './components/**/*.{js,ts,jsx,tsx}',
-  ],
-  theme: {
+    content: [
+    "./app/**/*.{js,ts,jsx,tsx}", // for App Router
+    "./pages/**/*.{js,ts,jsx,tsx}", // just in case you're mixing
+    "./components/**/*.{js,ts,jsx,tsx}", // include components if needed
+    ],  
+    theme: {
     extend: {
       fontFamily: {
         poppins: ['var(--font-poppins)', 'sans-serif'],
@@ -14,3 +13,4 @@ module.exports = {
   },
   plugins: [],
 }
+
