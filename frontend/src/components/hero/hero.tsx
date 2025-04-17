@@ -15,9 +15,9 @@ export default function Hero() {
     }, []);
 
     return (
-        <div className="overflow-hidden flex flex-col w-full h-screen items-center justify-center gap-8">
+        <div className="overflow-hidden flex flex-col w-full h-screen items-center text-center justify-center gap-8">
         <motion.h1
-            className="text-7xl xl:text-7xl font-bold bg-linear-to-r from-white to-yellow-200 bg-clip-text text-transparent [-webkit-text-stroke:2px_black]"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-linear-to-r from-white to-yellow-200 bg-clip-text text-transparent [-webkit-text-stroke:2px_black] mx-6"
             initial={{ y: 70, opacity: 0 }}
             animate={{
                 y: 0,
@@ -38,7 +38,7 @@ export default function Hero() {
                 WELCOME TO TWINLIGHT
         </motion.h1>
             <motion.a
-                className="bg-[#D9D9D9] rounded-full p-2 px-12 text-xl"
+                className="bg-[#D9D9D9] rounded-full p-2 px-8 md:px-12 md:text-lg xl:text-xl"
                 href="/"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
