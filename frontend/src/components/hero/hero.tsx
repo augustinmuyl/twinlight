@@ -38,8 +38,9 @@ export default function Hero() {
                 WELCOME TO TWINLIGHT
         </motion.h1>
             <motion.a
-                className="bg-[#D9D9D9] rounded-full p-2 px-8 md:px-12 md:text-lg xl:text-xl"
-                href="/"
+                className="bg-[#D9D9D9] rounded-full p-2 px-8 md:px-12 md:text-lg xl:text-xl
+                    shadow-[0_0_8px_2px_rgba(217,217,217,0.7)] hover:shadow-[0_0_12px_4px_rgba(217,217,217,0.9)] transition-shadow ease-in-out duration-200"
+                href="/map"
                 initial={{ y: 50, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.75, delay: 0.35 }}
