@@ -1,21 +1,11 @@
 "use client"
 
-import {useEffect} from "react";
 import {motion} from "motion/react";
 
 export default function Hero() {
-    useEffect(() => {
-        // Lock scrolling globally
-        document.body.style.overflow = "hidden";
-        
-        return () => {
-            // Restore scroll when the component is unmounted
-            document.body.style.overflow = "auto";
-        };
-    }, []);
-
     return (
-        <div className="overflow-hidden flex flex-col w-full h-screen items-center text-center justify-center gap-8">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
+            justify-self-center flex flex-col items-center text-center justify-center gap-8">
         <motion.h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-linear-to-r from-white to-yellow-200 bg-clip-text text-transparent [-webkit-text-stroke:2px_black] mx-6"
             initial={{ y: 70, opacity: 0 }}
