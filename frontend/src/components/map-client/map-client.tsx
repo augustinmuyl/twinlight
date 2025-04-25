@@ -58,8 +58,18 @@ export default function MapClient() {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={position}>
-            <Popup>You are here</Popup>
+          <Marker
+            position={position}
+            draggable={true}
+            eventHandlers={{
+              dragend: (e) => {
+                const marker = e.target;
+                const newPos = marker.getLatLng();
+                setPosition(newPos);
+              },
+            }}
+          >
+            <Popup>You are here ({position.lat}, {position.lng})</Popup>
           </Marker>
         </MapContainer>
       )}
