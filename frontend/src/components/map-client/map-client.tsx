@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import APIData from "../api-data/api-data";
 
 import L from "leaflet";
 import { LatLng } from "leaflet";
@@ -69,7 +70,7 @@ export default function MapClient() {
               },
             }}
           >
-            <Popup>You are here ({position.lat}, {position.lng})</Popup>
+            <Popup><APIData lat={position.lat} lng={position.lng}/></Popup>
           </Marker>
         </MapContainer>
       )}

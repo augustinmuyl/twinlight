@@ -1,15 +1,15 @@
 import express from 'express'
 import cors from 'cors'
-import bodyParser from 'body-parser'
 import dotenv from 'dotenv'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { MongoClient } from 'mongodb'
+import { getSunrise, getSunset } from 'sunrise-sunset-js';
 
 dotenv.config()
 
 const app = express()
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 
 const PORT = process.env.PORT || 4000
 
@@ -31,6 +31,19 @@ app.get('/', async(req, res) => {
         hello: "world",
         name: "augustin",
     })
+})
+
+app.post('/api/data', async (req, res) => {
+    try {
+        const { lat, lng } = req.body;
+        console.log("Received Data: ", req.body);
+        const sunrise = getSunrise(lat, lng).toLocaleTimeString();
+        const sunset = getSunset(lat, lng).toLocaleTimeString();
+        res.json({ sunrise, sunset })
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Something went wrong!" });
+    }
 })
 
 app.post('/chat', async (req, res) => {
