@@ -1,6 +1,7 @@
 "use client"
 
 import "./globals.css";
+import "leaflet/dist/leaflet.css";
 import { Poppins } from 'next/font/google';
 import { useEffect } from "react";
 
