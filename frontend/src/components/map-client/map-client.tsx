@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { LatLng, MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 import L from "leaflet";
 import { LatLng } from "leaflet";
@@ -23,10 +23,7 @@ export default function MapClient() {
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        setPosition({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-        });
+        setPosition(new L.LatLng(pos.coords.latitude, pos.coords.longitude));
       },
       (err) => {
         console.error("Location error:", err);
