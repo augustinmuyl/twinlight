@@ -13,17 +13,24 @@ app.use(bodyParser.json())
 
 const PORT = process.env.PORT || 4000
 
-const mongourl = process.env.MONGO_URL
-const mongoclient = new MongoClient(mongourl, {})
+// const mongourl = process.env.MONGO_URL
+// const mongoclient = new MongoClient(mongourl, {})
 
-mongoclient.connect().then(() => {
-    console.log("Connected to MongoDB")
-})
+// mongoclient.connect().then(() => {
+//     console.log("Connected to MongoDB")
+// })
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY)
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
     systemInstruction: `TBD`,
+})
+
+app.get('/', async(req, res) => {
+    res.json({
+        hello: "world",
+        name: "augustin",
+    })
 })
 
 app.post('/chat', async (req, res) => {
