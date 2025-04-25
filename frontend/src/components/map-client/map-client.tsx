@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: "/leaflet/marker-icon-2x.png",
+  iconUrl: "/leaflet/marker-icon.png",
+  shadowUrl: "/leaflet/marker-shadow.png",
+});
 
 function LocationMarker() {
   const [position, setPosition] = useState(null)
@@ -11,7 +19,7 @@ function LocationMarker() {
     },
     locationfound(e) {
       setPosition(e.latlng)
-      map.flyTo(e.latlng, map.getZoom())
+      map.setView(e.latlng, map.getZoom())
     },
   })
 
@@ -23,7 +31,7 @@ function LocationMarker() {
 }
 export default function MapClient() {
     return (
-       <div className="w-[600px] h-[400px] shadow-lg rounded-xl overflow-hidden">
+       <div className="w-[600px] h-[400px] shadow-lg rounded-3xl overflow-hidden">
             <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} className="w-full h-full">
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
