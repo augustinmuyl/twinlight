@@ -21,7 +21,7 @@ export default function Navbar() {
                 href="/"
                 initial={{ opacity: 0}}
                 animate={{ opacity: 1}}
-                transition={{ duration: 2, delay: 1}}
+                transition={{ duration: 1, delay: 1}}
             >
                 <Flame size={32} className="invert absolute top-12 left-10 hover:scale-110 hover:opacity-85 transition-all"/>
             </motion.a>
