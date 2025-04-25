@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from "react-leaflet";
 import L from "leaflet";
+import { LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 L.Icon.Default.mergeOptions({
@@ -12,7 +13,7 @@ L.Icon.Default.mergeOptions({
 });
 
 function LocationMarker() {
-  const [position, setPosition] = useState(null)
+  const [position, setPosition] = useState<LatLng | null>(null);
   const map = useMapEvents({
     click() {
       map.locate()
