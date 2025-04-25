@@ -32,7 +32,7 @@ function LocationMarker() {
 }
 export default function MapClient() {
     return (
-       <div className="w-[600px] h-[400px] shadow-lg rounded-3xl overflow-hidden">
+       <div className="w-full max-w-[600px] aspect-[2/3] sm:aspect-[3/2] shadow-lg rounded-3xl overflow-hidden border border-red-500">
             <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={true} className="w-full h-full">
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
