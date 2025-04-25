@@ -2,13 +2,11 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import Image from "next/image";
 import Link from "next/link";
 import { Flame, Menu, X } from "lucide-react";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     const toggleMenu = (e: React.MouseEvent) => {
