@@ -7,7 +7,7 @@ export default function Hero() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
             justify-self-center flex flex-col items-center text-center justify-center gap-8">
         <motion.h1
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-linear-to-r from-white to-yellow-200 bg-clip-text text-transparent [-webkit-text-stroke:2px_black] mx-6"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold bg-linear-to-r from-white to-yellow-200 bg-clip-text text-transparent [-webkit-text-stroke:2px_black] mx-6"
             initial={{ y: 70, opacity: 0 }}
             animate={{
                 y: 0,
@@ -17,7 +17,7 @@ export default function Hero() {
             transition={{
                 y: { duration: 1 },
                 opacity: { duration: 0.75 },
-                duration: 4, // Animation duration
+                duration: 3, // Animation duration
                 ease: "easeInOut",
                 repeat: Infinity, // Loop infinitely
             }}
