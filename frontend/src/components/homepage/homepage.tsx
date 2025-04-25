@@ -1,5 +1,5 @@
-import Hero from "../hero/hero.tsx";
-import Navbar from "../navbar/navbar.tsx";
+import Hero from "../hero/hero";
+import Navbar from "../navbar/navbar";
 
 export default function HomePage() {
 	return (

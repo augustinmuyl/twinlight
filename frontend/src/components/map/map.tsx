@@ -1,4 +1,4 @@
-import Navbar from "../navbar/navbar.tsx";
+import Navbar from "../navbar/navbar";
 
 export default function Map() {
     return (

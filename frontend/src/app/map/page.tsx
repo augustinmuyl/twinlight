@@ -1,4 +1,4 @@
-import Map from "../../components/map/map.tsx";
+import Map from "../../components/map/map";
 
 export default function Home() {
   return (
