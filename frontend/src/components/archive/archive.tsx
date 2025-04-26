@@ -39,7 +39,7 @@ export default function Archive() {
 
     return (
         <div className="bg-gray-300/40 rounded-3xl p-6 flex flex-col justify-center items-center gap-6
-            w-full max-w-[1200px] max-h-[75vh] aspect-[2/3] md:aspect-[3/1.8] text-center">
+            w-full max-w-[1200px] max-h-[75vh] aspect-[3/1.8] text-center">
             <motion.h1
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white [-webkit-text-stroke:2px_black]"
                 initial={{ opacity: 0 }}
