@@ -18,7 +18,7 @@ export default function Archive() {
     useEffect(() => {
         async function getItems() {
             try {
-                const res = await fetch("http://localhost:4000/logs");
+                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/logs`);
                 if (!res.ok) {
                     throw new Error(`Server error: ${res.status}`);
                 }

@@ -8,7 +8,7 @@ export default function APIData({ lat, lng }) {
 
     useEffect(() => {
         async function getData() {
-            const sunRes = await fetch("http://localhost:4000/api/data", {
+            const sunRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/data`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -28,7 +28,7 @@ export default function APIData({ lat, lng }) {
                 });
             }, 0);
 
-            const gemRes = await fetch("http://localhost:4000/gemini", {
+            const gemRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gemini`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
