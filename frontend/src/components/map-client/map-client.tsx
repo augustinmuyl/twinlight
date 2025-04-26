@@ -81,7 +81,6 @@ export default function MapClient() {
                     offset={[0, -20]}
                     opacity={0.8}
                     permanent={true}
-                    className="text-xl"
                 >
                     Drag and click the pin anywhere to see sunrise & sunset
                 </Tooltip>
