@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 
 export default function Archive() {
     const [items, setItems] = useState([]);
@@ -30,22 +31,48 @@ export default function Archive() {
     return (
         <div className="bg-gray-300/40 rounded-3xl p-6 flex flex-col justify-center items-center gap-6
             w-full max-w-[1200px] max-h-[75vh] aspect-[2/3] md:aspect-[3/1.8] text-center">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white [-webkit-text-stroke:2px_black]">Archive of Logs</h1>
+            <motion.h1
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white [-webkit-text-stroke:2px_black]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5, delay: 0.5 }}
+            >
+                Archive of Logs
+            </motion.h1>
               {items.length === 0 ? (
                 <p>No logs found.</p>
               ) : (
-                <ul className="flex flex-col gap-2 overflow-y-auto max-h-[50vh] w-full px-6 ">
+                <motion.ul
+                        className="flex flex-col gap-2 overflow-y-auto max-h-[50vh] w-full px-6 "
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            hidden: {},
+                            visible: {
+                                transition: {
+                                    delayChildren: 0.75,
+                                    staggerChildren: 0.2
+                                }
+                            }
+                        }}
+                >
                   {items.map((log, i) => (
-                    <li
+                    <motion.li
                         key={i}
                         className="text-lg bg-white/60 border border-black rounded-full p-6 flex justify-center items-center gap-4"
+                        variants={{
+                                    hidden: { opacity: 0, y: 20 },
+                                    visible: { opacity: 1, y: 0 },
+                                }}
+                        transition={{ duration: 1 }}
                     >
                       <strong>🌅 Sunrise:</strong> {log.sunrise} |{" "}
                       <strong>🌇 Sunset:</strong> {log.sunset} |{" "}
                       <strong>🌍 Location:</strong> {log.similarLocation}
-                    </li>
+                      {/*<strong>Timestamp:</strong> {log.timestamp}*/}
+                    </motion.li>
                   ))}
-                </ul>
+                </motion.ul>
             )}
         </div>
     )
