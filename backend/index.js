@@ -24,6 +24,11 @@ app.use(express.json())
 
 const PORT = process.env.PORT || 4000
 
+const port = Number(process.env.PORT);
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Listening on port ${port}`);
+});
+
 const mongouri = process.env.MONGO_URI
 const mongoclient = new MongoClient(mongouri, {})
 
