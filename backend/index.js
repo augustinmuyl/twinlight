@@ -117,7 +117,7 @@ app.post('/gemini', async (req, res) => {
 
 app.get('/logs', async (req, res) => {
     try {
-        const logs = await mongoclient.db('personal-website').collection('logs').find({}).toArray()
+        const logs = await mongoclient.db('twinlight').collection('logs').find({}).toArray()
         res.status(200).json(logs)
     } catch (error) {
         console.error(error)
@@ -132,7 +132,7 @@ app.post('/add', async (req, res) => {
             res.status(400).json({ message: 'Bad Request' })
             return
         }
-        await mongoclient.db('personal-website').collection('logs').insertOne(log)
+        await mongoclient.db('twinlight').collection('logs').insertOne(log)
         res.status(201).json({ message: 'Success' })
     } catch (error) {
         console.error(error)
@@ -147,7 +147,7 @@ app.post('/delete', async (req, res) => {
             res.status(400).json({ message: 'Bad Request' })
             return
         }
-        await mongoclient.db('personal-website').collection('logs').deleteOne(log)
+        await mongoclient.db('twinlight').collection('logs').deleteOne(log)
         res.status(200).json({ message: 'Success' })
     } catch (error) {
         console.error(error)
