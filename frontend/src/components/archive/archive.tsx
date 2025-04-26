@@ -2,9 +2,17 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { DateTime } from "luxon";
 
 export default function Archive() {
-    const [items, setItems] = useState([]);
+    type Log = {
+      sunrise: string
+      sunset: string
+      similarLocation: string
+      timestamp: string
+    }
+
+    const [items, setItems] = useState<Log[]>([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -16,7 +24,8 @@ export default function Archive() {
                 }
                 const data = await res.json();
                 setItems(data);
-            } catch (err) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } catch (err: any) {
                 console.error("Fetch failed:", err);
                 setError(err.message);
             }
@@ -56,10 +65,13 @@ export default function Archive() {
                             }
                         }}
                 >
-                  {items.map((log, i) => (
+                  {items.map((log, i) => {
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                    const formattedTimestamp = DateTime.fromISO(log.timestamp).toLocaleString(DateTime.DATETIME_MED);
+                    return (
                     <motion.li
                         key={i}
-                        className="text-lg bg-white/60 border border-black rounded-full p-6 flex justify-center items-center gap-4"
+                        className="text-base md:text-lg bg-white/60 border border-black rounded-3xl sm:rounded-full p-6 flex flex-col sm:flex-row justify-center items-center gap-4"
                         variants={{
                                     hidden: { opacity: 0, y: 20 },
                                     visible: { opacity: 1, y: 0 },
@@ -69,9 +81,10 @@ export default function Archive() {
                       <strong>🌅 Sunrise:</strong> {log.sunrise} |{" "}
                       <strong>🌇 Sunset:</strong> {log.sunset} |{" "}
                       <strong>🌍 Location:</strong> {log.similarLocation}
-                      {/*<strong>Timestamp:</strong> {log.timestamp}*/}
+                      {/*<strong>🕰️ Timestamp:</strong> {formattedTimestamp}*/}
                     </motion.li>
-                  ))}
+                    )
+                  })}
                 </motion.ul>
             )}
         </div>

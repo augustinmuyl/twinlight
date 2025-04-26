@@ -117,7 +117,7 @@ app.post('/gemini', async (req, res) => {
 
 app.get('/logs', async (req, res) => {
     try {
-        const logs = await mongoclient.db('twinlight').collection('logs').find({}).toArray()
+        const logs = await mongoclient.db('twinlight').collection('logs').find({}).sort({ timestamp: -1 }).toArray()
         res.status(200).json(logs)
     } catch (error) {
         console.error(error)
