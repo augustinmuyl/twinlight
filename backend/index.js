@@ -7,6 +7,11 @@ import { getSunrise, getSunset } from 'sunrise-sunset-js';
 
 dotenv.config()
 
+if (!process.env.API_KEY) {
+  console.error("ERROR: API_KEY is not defined");
+  process.exit(1);
+}
+
 const app = express()
 app.use(cors())
 app.use(express.json())
@@ -23,14 +28,17 @@ const PORT = process.env.PORT || 4000
 const genAI = new GoogleGenerativeAI(process.env.API_KEY)
 const model = genAI.getGenerativeModel({
     model: "gemini-1.5-flash",
-    systemInstruction: `TBD`,
+    systemInstruction: `You are an expert meteorologist.
+        You are provided with a sunrise time, a sunset time, a latitude, a longitude, and a date.
+        These times are in the local timezone of the specified coordinates.
+        Your task is to identify a location that, on the same date, has sunrise and sunset times closely matching the provided times, while ideally being as geographically distant from the original coordinates as possible.
+        Your response must follow this EXACT format: "City Name, Country".
+        Include no additional text, explanation, or formatting.
+        If no valid location can be found, respond with "N/A", but strive to always find an answer.`
 })
 
-app.get('/', async(req, res) => {
-    res.json({
-        hello: "world",
-        name: "augustin",
-    })
+app.get('/', (req, res) => {
+    res.send("Backend running!");
 })
 
 app.post('/api/data', async (req, res) => {
@@ -46,18 +54,34 @@ app.post('/api/data', async (req, res) => {
     }
 })
 
-app.post('/chat', async (req, res) => {
-    const userInput = req.body.userInput
-    let responseMessage
+app.post('/gemini', async (req, res) => {
     try {
-        const result = await model.generateContent(userInput)
-        responseMessage = result.response.text()
-    } catch(e) {
-        responseMessage = 'Oops, something went wrong!'
+        const { lat, lng } = req.body;
+        console.log("Received Data: ", req.body);
+        const sunrise = getSunrise(lat, lng);
+        const sunset = getSunset(lat, lng);
+        const input = ({
+            sunrise: sunrise,
+            sunset: sunset,
+            latitude: lat,
+            longitude: lng,
+        })
+        let response;
+        try {
+            const prompt = `Sunrise: ${sunrise}, Sunset: ${sunset}, Latitude: ${lat}, Longitude: ${lng}`;
+            const result = await model.generateContent(prompt);
+            response = await result.response.text();
+        } catch (e) {
+            console.error(e);
+            response = "Oops, something went wrong!";
+        }
+        res.json({
+            message: response,
+        })
+    } catch (err) {
+        console.error(err);
+        res.status(err.status || 500).json({ error: err.message });
     }
-    res.json({
-        message: responseMessage,
-    })
 })
 
 app.listen(PORT, () => {
@@ -103,3 +127,4 @@ app.post('/delete', async (req, res) => {
         res.status(500).json({ message: 'Error' })
     }
 })
+

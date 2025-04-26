@@ -3,11 +3,12 @@ import { useMap } from "react-leaflet";
 
 export default function APIData({ lat, lng }) {
     const [data, setData] = useState(null);
+    const [geminiLocation, setGeminiLocation] = useState(null);
     const map = useMap();
 
     useEffect(() => {
         async function getData() {
-            const res = await fetch("http://localhost:4000/api/data", {
+            const sunRes = await fetch("http://localhost:4000/api/data", {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -17,7 +18,7 @@ export default function APIData({ lat, lng }) {
                     lng: lng,
                 })
             });
-            const json = await res.json();
+            const json = await sunRes.json();
             setData(json);
             setTimeout(() => {
                 map.eachLayer((layer) => {
@@ -26,6 +27,19 @@ export default function APIData({ lat, lng }) {
                     }
                 });
             }, 0);
+
+            const gemRes = await fetch("http://localhost:4000/gemini", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    lat: lat,
+                    lng: lng,
+                })
+            });
+            const gemJson = await gemRes.json();
+            setGeminiLocation(gemJson.message);
         }
 
         getData();
@@ -37,6 +51,7 @@ return (
             <div>
                 <p className="text-lg font-semibold text-[#FFB487]">🌅 Sunrise: {data.sunrise}</p>
                 <p className="text-lg font-semibold text-[#415777]">🌇 Sunset: {data.sunset}</p>
+                <p className="text-base fron-semibold text-green-700">🌍 Closest Match: {geminiLocation}</p>
             </div>
         ) : (
             <p className="text-gray-500">Loading...</p>
