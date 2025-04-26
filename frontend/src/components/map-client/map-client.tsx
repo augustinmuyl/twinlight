@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip } from "react-leaflet";
 import APIData from "../api-data/api-data";
 
 import L from "leaflet";
@@ -15,6 +15,8 @@ L.Icon.Default.mergeOptions({
 export default function MapClient() {
   const [position, setPosition] = useState<LatLng | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showTip, setShowTip] = useState(true);
+  const [onClick, setOnClick] = useState(false);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -35,7 +37,7 @@ export default function MapClient() {
   }, []);
 
   return (
-    <div className="w-full max-w-[600px] aspect-[2/3] sm:aspect-[3/2] shadow-lg rounded-3xl overflow-hidden border border-gray-200">
+    <div className="w-full max-w-[900px] aspect-[2/3] sm:aspect-[3/2] shadow-lg rounded-3xl overflow-hidden border border-gray-200">
       {error && (
         <div className="w-full h-full flex items-center justify-center text-xl text-red-500">
           {error}
@@ -51,7 +53,7 @@ export default function MapClient() {
       {position && (
         <MapContainer
           center={position}
-          zoom={13}
+          zoom={6}
           scrollWheelZoom
           className="w-full h-full"
         >
@@ -64,12 +66,26 @@ export default function MapClient() {
             draggable={true}
             eventHandlers={{
               dragend: (e) => {
-                const marker = e.target;
-                const newPos = marker.getLatLng();
+                const newPos = e.target.getLatLng();
                 setPosition(newPos);
+                setShowTip(false);
               },
+              click: () => {
+                setOnClick(true);
+              }
             }}
           >
+            { showTip && !onClick && (
+                <Tooltip
+                    direction="top"
+                    offset={[0, -20]}
+                    opacity={0.8}
+                    permanent={true}
+                    className="text-xl"
+                >
+                    Drag and click the pin anywhere to see sunrise & sunset
+                </Tooltip>
+            )}
             <Popup><APIData lat={position.lat} lng={position.lng}/></Popup>
           </Marker>
         </MapContainer>

@@ -3,6 +3,7 @@ import { useMap } from "react-leaflet";
 
 export default function APIData({ lat, lng }) {
     const [data, setData] = useState(null);
+    const map = useMap();
 
     useEffect(() => {
         async function getData() {
@@ -18,18 +19,24 @@ export default function APIData({ lat, lng }) {
             });
             const json = await res.json();
             setData(json);
+            setTimeout(() => {
+                map.eachLayer((layer) => {
+                    if (layer.getPopup && layer.getPopup()) {
+                        layer.getPopup().update();
+                    }
+                });
+            }, 0);
         }
 
         getData();
-    }, []);
+    }, [lat, lng, map]);
 
 return (
-    <div className="bg-white shadow-md rounded-lg p-6 max-w-sm mx-auto mt-8 text-center">
+    <div className="">
         {data ? (
             <div>
-                <h2 className="text-2xl font-semibold mb-4 text-gray-800">Sun Times</h2>
-                <p className="text-lg text-blue-600">🌅 Sunrise: <span className="font-medium">{data.sunrise}</span></p>
-                <p className="text-lg text-purple-600 mt-2">🌇 Sunset: <span className="font-medium">{data.sunset}</span></p>
+                <p className="text-lg font-semibold text-[#FFB487]">🌅 Sunrise: {data.sunrise}</p>
+                <p className="text-lg font-semibold text-[#415777]">🌇 Sunset: {data.sunset}</p>
             </div>
         ) : (
             <p className="text-gray-500">Loading...</p>
