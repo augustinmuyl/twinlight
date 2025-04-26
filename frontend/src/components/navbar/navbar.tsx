@@ -23,7 +23,7 @@ export default function Navbar() {
                 animate={{ opacity: 1}}
                 transition={{ duration: 1, delay: 1}}
             >
-                <Flame size={32} className="invert absolute top-12 left-10 hover:scale-110 hover:opacity-85 transition-all z-50"/>
+                <Flame size={32} className="invert absolute top-12 left-10 hover:scale-110 hover:opacity-85 transition-all z-30"/>
             </motion.a>
 
             {/* Mobile Screens */}
@@ -42,7 +42,7 @@ export default function Navbar() {
                         animate={{ x: 0 }}
                         exit={{ x: "100%" }}
                         transition={{ type: "tween", duration: 0.5 }}
-                        className="md:hidden text-white text-3xl fixed left-0 top-0 w-full h-screen bg-[rgba(0,0,0,0.8)] z-20 overflow-hidden flex flex-col justify-center items-center"
+                        className="md:hidden text-white text-3xl fixed left-0 top-0 w-full h-screen bg-[rgba(0,0,0,0.8)] z-20 overflow-hidden flex flex-col justify-center items-center z-40"
                     >
                         <motion.p
                             initial={{ x: "100%" }}
