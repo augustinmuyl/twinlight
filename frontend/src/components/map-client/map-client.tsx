@@ -37,7 +37,7 @@ export default function MapClient() {
   }, []);
 
   return (
-    <div className="w-full max-w-[900px] aspect-[2/3] sm:aspect-[3/2] shadow-lg rounded-3xl overflow-hidden border border-gray-200">
+    <div className="w-full max-w-[1200px] max-h-[75vh] aspect-[2/3] md:aspect-[3/1.8] shadow-lg rounded-3xl overflow-hidden border border-gray-200">
       {error && (
         <div className="w-full h-full flex items-center justify-center text-xl text-red-500">
           {error}

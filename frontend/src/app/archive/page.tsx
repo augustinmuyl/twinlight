@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import APIData from "../../components/api-data/api-data";
+// import APIData from "../../components/api-data/api-data";
 
 export default function Home() {
   const [message, setMessage] = useState("");
@@ -16,7 +16,6 @@ export default function Home() {
   return (
     <div>
       hello, {message}!
-      <APIData lat={"12345"} lng={"09876"}/>
     </div>
   )
 }
