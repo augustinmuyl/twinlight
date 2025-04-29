@@ -8,7 +8,7 @@ export default function APIData({ lat, lng }) {
 
     useEffect(() => {
         async function getData() {
-            const sunRes = await fetch("http://localhost:4000/api/data", {
+            const sunRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/data`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -20,15 +20,8 @@ export default function APIData({ lat, lng }) {
             });
             const json = await sunRes.json();
             setData(json);
-            setTimeout(() => {
-                map.eachLayer((layer) => {
-                    if (layer.getPopup && layer.getPopup()) {
-                        layer.getPopup().update();
-                    }
-                });
-            }, 0);
 
-            const gemRes = await fetch("http://localhost:4000/gemini", {
+            const gemRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gemini`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
@@ -44,6 +37,18 @@ export default function APIData({ lat, lng }) {
 
         getData();
     }, [lat, lng, map]);
+
+    useEffect(() => {
+      if (!data || !map) return;
+      // give React one tick to render markers/popups
+      requestAnimationFrame(() => {
+        map.eachLayer((layer) => {
+          if (layer.getPopup && layer.getPopup()) {
+            layer.getPopup().update();
+          }
+        });
+      });
+    }, [data, map]);
 
 return (
     <div className="">
