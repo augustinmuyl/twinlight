@@ -1,14 +1,17 @@
-"use client"
-
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
+import { Metadata } from "next";
 import { Poppins } from 'next/font/google';
-import { useEffect } from "react";
+
+export const metadata: Metadata = {
+  title: "TwinLight",
+  description: "Web application that displays sunrise and sunset times from anywhere in the world, along with a location that has matching solar schedules"
+}
 
 const poppins = Poppins({
-    subsets: ["latin"],
-    weight: ["400", "600", "700"], // Add whatever weights you need
-    variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export default function RootLayout({
@@ -16,17 +19,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-    useEffect(() => {
-        // Lock scrolling globally
-        document.body.style.overflow = "hidden";
-        
-        return () => {
-            // Restore scroll when the component is unmounted
-            document.body.style.overflow = "auto";
-        };
-    }, []);
-
   return (
     <html lang="en" className={poppins.variable}>
       <body style={{ fontFamily: 'var(--font-poppins)' }}>
